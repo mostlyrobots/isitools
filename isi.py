@@ -12,8 +12,9 @@ with open('instance/isi.yml', "r") as yamlfile:
 	config.password = c['password']
 	config.verify_ssl = c['verify_ssl']
 	config.host = f"https://{c['host']}:8080"
+	config.db_file = c['db_file']
 
-db_connection = sqlite3.connect(c['db_file'])
+db_connection = sqlite3.connect(config.db_file)
 db = db_connection.cursor()
 db.execute("DROP TABLE IF EXISTS quotas;")
 db.execute("""
@@ -49,7 +50,6 @@ for quota in quotas:
 	keys = ','.join(cur.keys())
 	values = ','.join('"' + str(x) + '"' for x in cur.values())
 	insert_sql = f"INSERT INTO quotas ({keys}) VALUES ({values});"
-	print(insert_sql)
 	db.execute(insert_sql)
 
 db_connection.commit()
