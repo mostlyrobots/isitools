@@ -5,6 +5,9 @@ import yaml
 
 import sqlite3
 
+# Suppress certificate warnings
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 config = Configuration()
 with open('instance/isi.yml', "r") as yamlfile:
 	c = yaml.safe_load(yamlfile)
