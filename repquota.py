@@ -29,9 +29,11 @@ db_connection = sqlite3.connect(db_file)
 
 db = db_connection.cursor()
 
+usergroups = os.getgrouplist(get_username(), 0)
+
 # produce a dictionary instead of a list
 db.row_factory = dict_factory
-db.execute(f"SELECT * from quotas where name='{get_username()}' ORDER BY type")
+db.execute(f"SELECT * from quotas where name='{get_username()}' OR name IN ({','.join(usergroups)}) ORDER BY type")
 quotas = db.fetchall()
 names = [column[0] for column in db.description]
 
