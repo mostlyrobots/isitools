@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sqlite3
 import os
 import pwd
@@ -130,7 +132,6 @@ for q in quotas:
 			elif q['soft'] is not None and q['usage'] / q['soft'] > .9:
 				warn_soft = 'You are near your soft limit which may prevent you from writing.\n'
 
-	print(q['soft'], q['usage'], type(q['soft']))
 	report.add_tabular(path, f"blocks ({qtype})", sz(q['usage']), sz(q['soft']), sz(q['hard']), round(q['usage'] / q['soft'] * 100), grace_left_str)
 	report.add_tabular('', f"files ({qtype})", q['inodes'], 'none', 'none', '', 'none')
 
