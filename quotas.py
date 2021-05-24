@@ -38,9 +38,9 @@ for quota in quotas:
 		cur['name'] = quota.persona.name.split('\\')[-1]
 	elif quota.type == "directory":
 		try:
-			cur['name'] = os.stat(quota.path).st_gid
+			cur['name'] = str(os.stat(quota.path).st_gid)
 		except FileNotFoundError:
-			cur['name'] = 99
+			cur['name'] = str(99)
 	keys = ','.join(cur.keys())
 	values = ','.join('"' + str(x) + '"' for x in cur.values())
 	insert_sql = f"INSERT INTO quotas ({keys}) VALUES ({values});"
