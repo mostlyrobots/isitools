@@ -2,6 +2,9 @@ import sqlite3
 import os
 import pwd
 from datetime import timedelta, datetime
+from time import ctime
+
+db_file = '/share/quotas.db'
 
 
 def get_username():
@@ -28,7 +31,7 @@ def sz(num, suffix='B'):
 	return "%.1f%s%s" % (num, 'Yi', suffix)
 
 
-db_file = '/ifs/harbor/share/quotas.db'
+db_mtime = ctime(os.stat(db_file).st_ctime)
 
 db_connection = sqlite3.connect(db_file)
 
@@ -139,4 +142,5 @@ if warn_hard:
 if warn_grace:
 	report.add_line("The grace period on one of the directories you use has elasped.\nThis means that you can no longer write files to this location.\n")
 
+print(f'Information current as of {db_mtime}.')
 report.print()
