@@ -142,5 +142,5 @@ if warn_hard:
 if warn_grace:
 	report.add_line("The grace period on one of the directories you use has elasped.\nThis means that you can no longer write files to this location.\n")
 
-print(f'Information current as of {db_mtime}.')
 report.print()
+print(f'This information was current as of {db_mtime}.')
