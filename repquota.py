@@ -13,6 +13,7 @@ USERNAME = pwd.getpwuid(os.getuid())[0]
 
 
 class QuotaReport():
+
 	def __init__(self, spacing, pre='\n\n', end='\n'):
 		# The eventual output string to print
 		self.output = pre
@@ -132,7 +133,7 @@ for q in quotas:
 			report.add_tabular(sum_line=True)
 
 	if q.grace_lapsed:
-		report.add_summary_line(f"The grace period on {q.fileset} has expired. You will not be able to write until you reduce usage.")
+		report.add_summary_line(f"The grace period on {q.fileset} has expired. Writing is disabled until you reduce usage.")
 	report.add_tabular(q.fileset, f"blocks ({q.type})", q.usage, q.soft, q.hard, q.percent_free, q.grace)
 	report.add_tabular('', f"files ({q.type})", q.inodes, 'none', 'none', '', 'none')
 
