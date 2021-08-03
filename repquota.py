@@ -6,7 +6,7 @@ import pwd
 from datetime import timedelta, datetime
 from time import ctime
 
-db_file = '/share/quotas.db'
+db_file = '/share/software/var/repquota/quotas.db'
 
 
 USERNAME = pwd.getpwuid(os.getuid())[0]
